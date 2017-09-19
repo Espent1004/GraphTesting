@@ -18,6 +18,12 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            /*
+            Retrieve all airports from database and add them as vertices in the graph
+            Retrieve all flights on the specified day and calculate traveltime based on departure and arrival
+            Flight must reach the next airport before the next flight leaves
+            Take into account waiting time at airport when calculating total time
+            */
             //Airports
             var gardermoen = new Airport() { };
             gardermoen.Name = "Gardermoen";
@@ -49,6 +55,11 @@ namespace Test
             route13.TravelTime = 200;
 
             //Routes from gatwick
+            var route21 = new Route();
+            route21.Source = gatwick;
+            route21.Target = gardermoen;
+            route21.TravelTime = 90;
+
             var route22 = new Route();
             route22.Source = gatwick;
             route22.Target = frankfurt;
@@ -60,7 +71,26 @@ namespace Test
             route31.Target = barcelona;
             route31.TravelTime = 150;
 
+            var route32 = new Route();
+            route32.Source = frankfurt;
+            route32.Target = gardermoen;
+            route32.TravelTime = 90;
 
+            var route33 = new Route();
+            route33.Source = frankfurt;
+            route33.Target = gatwick;
+            route33.TravelTime = 80;
+
+            //Routes from barcelona
+            var route41 = new Route();
+            route41.Source = barcelona;
+            route41.Target = frankfurt;
+            route41.TravelTime = 150;
+
+            var route42 = new Route();
+            route42.Source = barcelona;
+            route42.Target = gardermoen;
+            route42.TravelTime = 200;
 
             //Test
 
@@ -79,16 +109,21 @@ namespace Test
             g.AddEdge(route11);
             g.AddEdge(route12);
             g.AddEdge(route13);
+            g.AddEdge(route21);
             g.AddEdge(route22);
             g.AddEdge(route31);
+            g.AddEdge(route32);
+            g.AddEdge(route33);
+            g.AddEdge(route41);
+            g.AddEdge(route42);
             g.AddEdge(route99);
 
             //Func that returns the traveltime of the route arg
             Func<Route, double> travelTime = t => t.TravelTime;
 
             //Source airport and target
-            Airport sourceA = gardermoen;
-            Airport targetA = barcelona;
+            Airport sourceA = barcelona;
+            Airport targetA = gardermoen;
 
             //Using HoffmanPavleyRankedShortestPath to find the 2 shortest paths
             HoffmanPavleyRankedShortestPathAlgorithm<Airport, Route> hoffmanAlgorithm = new HoffmanPavleyRankedShortestPathAlgorithm<Airport, Route>(g,travelTime);

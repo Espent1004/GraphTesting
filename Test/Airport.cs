@@ -8,6 +8,7 @@ namespace Test
 {
     class Airport
     {
+        //Endre til ID
         public String Name { get; set; }
 
 
