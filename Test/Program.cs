@@ -20,9 +20,9 @@ namespace Test
         {
             /*
             Retrieve all airports from database and add them as vertices in the graph
-            Retrieve all flights on the specified day and calculate traveltime based on departure and arrival
-            Flight must reach the next airport before the next flight leaves
-            Take into account waiting time at airport when calculating total time
+            Retrieve all flights on the specified day and calculate traveltime based on departure and arrival, convert to double
+            Flight must reach the next airport 30 minutes before the next flight leaves: (r.ArrivalTime + 30) > r.next.DepartureTime
+            Take into account waiting time at airport when calculating total time: Calculate by iterating through the IEnumerable and retrieving the travelTime
             */
             //Airports
             var gardermoen = new Airport() { };
