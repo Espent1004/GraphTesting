@@ -10,6 +10,7 @@ using QuickGraph.Algorithms.Observers;
 using QuickGraph.Algorithms;
 using System.Data;
 using QuickGraph.Algorithms.RankedShortestPath;
+using QuickGraph.Graphviz;
 
 namespace Test
 {
@@ -59,6 +60,15 @@ namespace Test
             route31.Target = barcelona;
             route31.TravelTime = 150;
 
+
+
+            //Test
+
+            var route99 = new Route();
+            route99.Source = gardermoen;
+            route99.Target = barcelona;
+            route99.TravelTime = 50;
+
             //Graph where the edges go both ways
             var g = new BidirectionalGraph<Airport, Route>();
             //Adding airports and routes to graph
@@ -71,9 +81,10 @@ namespace Test
             g.AddEdge(route13);
             g.AddEdge(route22);
             g.AddEdge(route31);
+            g.AddEdge(route99);
 
             //Func that returns the traveltime of the route arg
-            Func<Route, double> travelTime = t => t.TravelTime ;
+            Func<Route, double> travelTime = t => t.TravelTime;
 
             //Source airport and target
             Airport sourceA = gardermoen;
@@ -84,23 +95,9 @@ namespace Test
 
             try
             {
-                hoffmanAlgorithm.ShortestPathCount = 2;
+                hoffmanAlgorithm.ShortestPathCount = 5;
                 hoffmanAlgorithm.SetRootVertex(sourceA);
                 hoffmanAlgorithm.Compute(sourceA, targetA);
-
-
-                //Prints the traveltime of the path
-/*
-                List<IEnumerable<Route>> paths = hoffmanAlgorithm.ComputedShortestPaths.ToList<IEnumerable<Route>>();
-
-                foreach (IEnumerable<Route> p in paths) {
-                    double time = 0;
-                    foreach (Route r in p) {
-                        time += r.TravelTime;
-                    }
-                    Debug.WriteLine(time);
-                }
-*/
                 //Prints the paths to the console
                 foreach (IEnumerable<Route> path in hoffmanAlgorithm.ComputedShortestPaths)
                 {
@@ -108,7 +105,9 @@ namespace Test
                     Debug.WriteLine("------------------------------");
                 }
             }
-            catch(Exception e) { }
+            catch(Exception e) {
+                Debug.WriteLine(e);
+            }
 
         }
     }
