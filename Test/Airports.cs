@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Test
 {
-    class Airport
+    class Airports
     {
         //Endre til ID
-        public String Name { get; set; }
+        public String AirportID { get; set; }
+        public String AirportName { get; set; }
 
 
         public override string ToString()
         {
 
-            return Name;
+            return AirportName;
         }
     }
 }

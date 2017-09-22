@@ -7,14 +7,17 @@ using QuickGraph;
 
 namespace Test
 {
-    class Route : IEdge<Airport>
+    class Route : IEdge<Airports>
     {
         //Regn ut ved hjelp av departure og arrival
         public double TravelTime { get; set; }//The weight to use in the graph
 
-        public Airport Source { get; set; }
+        public Airports Source { get; set; }
 
-        public Airport Target { get; set; }
+        public Airports Target { get; set; }
+
+        public DateTime DepartureTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
 
         public override string ToString() {
 
